@@ -16,9 +16,9 @@ for type in types:
 
 def greeting():
     print("#" * 37)
-    print("Welcome to Restaurant Recommendations")
-    print("Here's a list of food types to choose from:")
+    print("\nWelcome to Restaurant Recommendations\n")
     print_food_types()
+    print()
 
 def get_user_input():
     response = ""
@@ -29,13 +29,22 @@ def get_user_input():
     return response.lower()
 
 def print_food_types():
-    for type in types:
-        if type == types[-1]:
-            print(type.capitalize())
+    response = ""
+    while True:
+        response = input("Would you like to see the food types? y/n?: ")
+        if response.lower() == 'y':
+            print()
+            for type in types:
+                if type == types[-1]:
+                    print(type.capitalize())
+                else:
+                    print(f"{type.capitalize()}, ", end="")
+            break
         else:
-            print(f"{type.capitalize()}, ", end="")
+            return None
 
 def print_results(response, restaurant_dict):
+    print("\n")
     for restaurant in restaurant_dict[response]:
         print("#" * 25)
         print(restaurant['name'])
@@ -44,10 +53,21 @@ def print_results(response, restaurant_dict):
         print(restaurant['address'])
         print("#" * 25 + "\n")
 
+def ask_again():
+    response = ""
+    while True:
+        response = input("Would you like another recommendation? y/n: ")
+        if response.lower() == 'y':
+            return True
+        else:
+            return False
+
 def main():
     greeting()
     response = get_user_input()
     print_results(response, temp_dict)
+    if ask_again():
+        main()
 
 if __name__ == '__main__':
     main()
