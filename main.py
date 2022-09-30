@@ -2,17 +2,23 @@
 # Restaurant Recommendation app
 
 from restaurantData import types, restaurant_data
+from hash_map import HashMap
 
-temp_dict = {}
+# temp_dict = {}
 
-for type in types:
-    temp_dict[type] = []
-    for restaurant in restaurant_data:
-        if restaurant[0] == type:
-            temp_dict[type].append({'name': restaurant[1],
-                               'price': restaurant[2],
-                               'rating': restaurant[3],
-                               'address': restaurant[4]})
+# for type in types:
+#     temp_dict[type] = []
+#     for restaurant in restaurant_data:
+#         if restaurant[0] == type:
+#             temp_dict[type].append({'name': restaurant[1],
+#                                'price': restaurant[2],
+#                                'rating': restaurant[3],
+#                                'address': restaurant[4]})
+
+h = HashMap(len(types))
+
+for type in restaurant_data:
+    h.set_value(type[0], (type[0], type[1], type[2]))
 
 def greeting():
     print("#" * 37)
@@ -63,11 +69,7 @@ def ask_again():
             return False
 
 def main():
-    greeting()
-    response = get_user_input()
-    print_results(response, temp_dict)
-    if ask_again():
-        main()
+    print(h)
 
 if __name__ == '__main__':
     main()
